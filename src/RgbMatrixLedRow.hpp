@@ -39,6 +39,11 @@ public:
 		}
 	}
 
+	uint8_t GetMaxLedState(uint8_t index)
+	{
+		return this->GetMaxLedState((ERgbLedColor) index);
+	}
+
 	uint8_t RowIndex;
 
 private:
