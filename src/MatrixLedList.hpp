@@ -17,7 +17,7 @@ public:
 	{
 		if (index > 8 || index < 0)
 		{
-			throw "index needs to be 0 < index < 8 ! Was " + index;
+			throw "index needs to be 0 < index < 8 ! Was " + String(index);
 		}
 
 		this->_ledsInList[index] = led;
