@@ -27,7 +27,6 @@ public:
 
 	uint8_t GetMaxLedState(ERgbLedColor color)
 	{
-
 		switch (color)
 		{
 		case Red:
@@ -37,6 +36,7 @@ public:
 		case Blue:
 			return this->_blueLedLists->GetMaxLedState();
 		}
+		return 0;
 	}
 
 	uint8_t GetMaxLedState(uint8_t index)
