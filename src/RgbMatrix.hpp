@@ -19,29 +19,39 @@ public:
 
 	RgbMatrix *WithRowAt(RgbMatrixLedRow *row, uint8_t index)
 	{
-		if (index < 0 || index > this->_rowCount)
-		{
-			throw "Index need to be greater than " + this->_rowCount;
-		}
-
+		this->CheckIndex(index, this->_rowCount);
 		this->_rows[index] = row;
-
 		return this;
 	}
 
 	RgbMatrix *WithColumnAt(MatrixLedList *row, uint8_t index)
 	{
-		if (index < 0 || index > this->_rowCount)
-		{
-			throw "Index need to be greater than " + this->_rowCount;
-		}
-
+		this->CheckIndex(index, this->_columnCount);
 		this->_columns[index] = row;
-
 		return this;
 	}
 
+	RgbMatrixLedRow GetRowAt(uint8_t index)
+	{
+		this->CheckIndex(index, this->_rowCount);
+		return *this->_rows[index];
+	}
+
+	MatrixLedList GetColumnAt(uint8_t index)
+	{
+		this->CheckIndex(index, this->_columnCount);
+		return *this->_columns[index];
+	}
+
 private:
+	void CheckIndex(uint8_t index, uint8_t max)
+	{
+		if (index < 0 || index > max)
+		{
+			throw "Index need to be less than 0 and greater than " + String(max) + ", but was " + String(index);
+		}
+	}
+
 	uint8_t _rowCount;
 	uint8_t _columnCount;
 
