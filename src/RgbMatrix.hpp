@@ -23,10 +23,31 @@ public:
 		return this;
 	}
 
-	RgbMatrixLedRow GetRowAt(uint8_t index)
+	uint8_t *GetShiftRegisterValues()
 	{
-		this->CheckIndex(index, this->_rowCount);
-		return *this->_rows[index];
+		uint8_t *data = (uint8_t *)malloc(sizeof(uint8_t) * (3 * this->_rowCount + this->_columnCount));
+		uint8_t dataindex = 0;
+		for (uint8_t rowindex = 0; rowindex < this->_rowCount; rowindex++)
+		{
+			data[0 + 3 * rowindex] = this->_rows[rowindex]->GetMaxLedState(Red);
+			data[1 + 3 * rowindex] = this->_rows[rowindex]->GetMaxLedState(Green);
+			data[2 + 3 * rowindex] = this->_rows[rowindex]->GetMaxLedState(Blue);
+			dataindex += 3;
+		}
+
+		for (uint8_t columnIndex = 0; columnIndex < this->_columnCount; columnIndex++)
+		{
+			uint8_t value = 0;
+			for (uint8_t rowindex = 0; rowindex < this->_rowCount; rowindex++)
+			{
+				value = max(value, this->_rows[rowindex]->GetMaxLedState(columnIndex));
+			}
+
+			data[dataindex++] = value;
+		}
+
+		Serial.println("final dataindex = " + String(dataindex));
+		return data;
 	}
 
 private:

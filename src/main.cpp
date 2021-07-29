@@ -30,8 +30,8 @@ void SetupMatrix()
 void setup()
 {
   // put your setup code here, to run once:
-
   SetupMatrix();
+  uint8_t *shitreegisterData = matrix.GetShiftRegisterValues();
 }
 
 void loop()

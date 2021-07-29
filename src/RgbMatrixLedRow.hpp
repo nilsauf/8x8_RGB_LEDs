@@ -41,12 +41,25 @@ public:
 
 	uint8_t GetMaxLedState(uint8_t index)
 	{
-		return this->GetMaxLedState((ERgbLedColor) index);
+		this->CheckIndex(index, 8);
+		return max(
+			this->_redLedLists->GetLedState(index),
+			max(
+				this->_greenLedLists->GetLedState(index),
+				this->_blueLedLists->GetLedState(index)));
 	}
 
 	uint8_t RowIndex;
 
 private:
+	void CheckIndex(uint8_t index, uint8_t max)
+	{
+		if (index < 0 || index > max)
+		{
+			throw "Index need to be less than 0 and greater than " + String(max) + ", but was " + String(index);
+		}
+	}
+
 	const uint8_t _listCount = 3;
 	MatrixLedList *_redLedLists;
 	MatrixLedList *_greenLedLists;

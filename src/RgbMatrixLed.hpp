@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <MatrixLed.hpp>
-#include <RgbLedToNonRgbWrapper.hpp>
 #include <string>
 
 enum ERgbLedColor
@@ -117,11 +116,6 @@ public:
             return this->_blue;
         }
         return NULL;
-    }
-
-    MatrixLed *AsMatrixLed()
-    {
-        return new RgbLedToNonRgbWrapper(this);
     }
 
 private:
